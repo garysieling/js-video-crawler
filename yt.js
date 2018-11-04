@@ -14,6 +14,12 @@ const end = process.argv[3]
 //console.log(end);
 
 const dataDir = '/projects/data/videos';
+const KEY=process.env.YOUTUBE_KEY;
+
+if (!KEY) {
+  console.log("Define YOUTUBE_KEY");
+  process.exit(1);
+}
 
 async.mapSeries(
   files.slice(start, end).map(
@@ -36,21 +42,27 @@ async.mapSeries(
     (x) => !!x
   ).filter(
     (ytId) => 
-      !fs.existsSync(dataDir + '/' + ytId + '/' + ytId + '.info.json')
+      fs.existsSync(dataDir + '/' + ytId + '/' + ytId + '.info.json')
+//      && !fs.existsSync(dataDir + '/' + ytId + '/api.json')
   ),
   function(ytId, cb) {
     console.log(ytId);
-
-     exec(`/home/gary/.local/bin/youtube-dl \
+/*
+`/home/gary/.local/bin/youtube-dl \
       --ffmpeg-location ${ffmpegDir} \
       --skip-download -w \
       --ignore-errors --youtube-skip-dash-manifest \
-      -o '${dataDir}/${ytId}/%(id)s' --write-info-json \
+      --write-info-json \
       --write-auto-sub --write-sub --sub-lang en --sub-format srt  \
       --convert-subs srt \
       --no-call-home \
       "https://www.youtube.com/watch?v=${ytId}"
-	`, function callback(error, stdout, stderr){
+	`
+*/
+     const command = `curl -o '${dataDir}/${ytId}/api.json' 'https://www.googleapis.com/youtube/v3/videos?id=${ytId}&key=${KEY}&part=player,statistics,status,topicDetails'`;
+     console.log(command);
+
+     exec(command, function callback(error, stdout, stderr){
       if (error) {
         console.log(error);
       }
