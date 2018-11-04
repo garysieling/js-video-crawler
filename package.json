@@ -1,0 +1,23 @@
+{
+  "name": "js-video-crawler",
+  "version": "1.0.0",
+  "description": "Download metadata for many videos",
+  "main": "index.js",
+  "dependencies": {
+    "srt-to-text": "^1.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/garysieling/js-video-crawler.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/garysieling/js-video-crawler/issues"
+  },
+  "homepage": "https://github.com/garysieling/js-video-crawler#readme"
+}
