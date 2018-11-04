@@ -43,7 +43,7 @@ async.mapSeries(
   ).filter(
     (ytId) => 
       fs.existsSync(dataDir + '/' + ytId + '/' + ytId + '.info.json')
-//      && !fs.existsSync(dataDir + '/' + ytId + '/api.json')
+      && !fs.existsSync(dataDir + '/' + ytId + '/api.json')
   ),
   function(ytId, cb) {
     console.log(ytId);
