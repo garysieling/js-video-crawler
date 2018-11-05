@@ -15,6 +15,10 @@ files.map(
     const data = {};
     data.subtitles = null;
 
+    if (fs.existsSync(destination)) {
+      return;
+    }
+
     if (fs.existsSync(source)) {
       const vtt = fs.readFileSync(source, 'utf-8');
       data.subtitles = srt.parse(vtt);
